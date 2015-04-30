@@ -96,6 +96,33 @@ class inMyPluxml extends plxPlugin {
 	        $content = json_decode($json, true);
 	        $title = $content[\'rss\'][\'channel\'][\'item\'][\'title\'];
 	        $body = $content[\'rss\'][\'channel\'][\'item\'][\'description\'];
+		$body = str_replace(
+        		array(
+	        		\'<pre>\',
+	        		\'<pre class="line-numbers"><code class="language-">\'."\n",
+	        		\'<code class="language-">\'."\n",
+	        		\'<code class="language-"><code>\',
+	        		\'</code>\'."\n",
+	        		\'</pre>\',
+	        		
+	        	), 
+	        	array(
+	        		\'<pre class="line-numbers"><code class="language-">\',
+	        		\'<pre class="line-numbers"><code class="language-">\',
+	        		\'<code class="language-">\',
+	        		\'<code class="language-">\',
+	        		\'</code>\',
+	        		\'</code></pre>\',
+	        	)
+		, $body);
+		$body = str_replace(
+	        	array(
+	        		\'</pre><code class="language-">\'	        		
+	        	), 
+	        	array(
+	        		\'</pre>\'
+	        	)
+		, $body);
 
 			# Alimentation des variables
 			$artId = \'0000\';
